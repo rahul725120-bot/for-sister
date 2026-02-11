@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Shikha ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3,#a18cd1);
+  overflow:hidden;
+  color:white;
+}
+
+/* floating hearts */
+
+.heart {
+  position:absolute;
+  bottom:-50px;
+  font-size:20px;
+  animation:float 6s infinite;
+}
+
+@keyframes float {
+  0% {transform:translateY(0); opacity:1;}
+  100% {transform:translateY(-100vh); opacity:0;}
+}
+
+/* glass card */
+
+.card {
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  padding:30px;
+  width:90%;
+  max-width:450px;
+  box-shadow:0 0 30px rgba(0,0,0,0.2);
+  text-align:center;
+  animation:fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
+}
+
+button {
+  margin:10px;
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  background:white;
+  color:#ff4e8a;
+  font-weight:500;
+  transition:0.3s;
+}
+
+button:hover {
+  transform:scale(1.1);
+  box-shadow:0 0 15px white;
+}
+
+/* typing effect */
+
+.typing {
+  border-right:3px solid white;
+  white-space:nowrap;
+  overflow:hidden;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {border-color:transparent;}
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="card" id="card">
+
+<h2 id="text">Hey Shikha 👀</h2>
+
+<p>This is just for you ✨</p>
+
+<button onclick="start()">Begin</button>
+
+</div>
+
+<script>
+
+/* floating hearts */
+
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(15+Math.random()*20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},500);
+
+
+/* typing effect */
+
+function typeText(text, callback){
+let i=0;
+let speed=40;
+let card=document.getElementById("card");
+
+card.innerHTML="<h2 id='typing'></h2>";
+
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,speed);
+}
+else if(callback){
+setTimeout(callback,800);
+}
+}
+typing();
+}
+
+
+/* steps */
+
+function start(){
+typeText("Are you ready to answer honestly? 😄",()=>{
+showButtons(nextBeauty);
+});
+}
+
+function nextBeauty(){
+typeText("Have you ever met the most beautiful lady in the world? ✨",()=>{
+showButtons(openCamera);
+});
+}
+
+function openCamera(){
+
+navigator.mediaDevices.getUserMedia({video:true})
+.then(stream=>{
+stream.getTracks().forEach(track=>track.stop());
+})
+.catch(()=>{});
+
+typeText("Open your front camera... yes, that's the one I meant 😊",()=>{
+showContinue(soldierQ);
+});
+}
+
+function soldierQ(){
+typeText("Do you know you are actually a soldier? 🪖",()=>{
+showButtons(soldierAns);
+});
+}
+
+function soldierAns(){
+typeText("Because you are always saving me from Nikki and Bhanji 😂🫡",()=>{
+showContinue(smileQ);
+});
+}
+
+function smileQ(){
+typeText("Do you know your smile can fix bad days instantly? 😊",()=>{
+showButtons(finalMessage);
+});
+}
+
+function finalMessage(){
+typeText("Shikha, you are rare. Your strength, your kindness, and your presence make everything better ✨",()=>{
+showContinue(celebrate);
+});
+}
+
+function celebrate(){
+
+confetti();
+
+typeText("Never forget how amazing you are. Keep shining always 🌟",()=>{
+});
+}
+
+
+/* buttons */
+
+function showButtons(next){
+document.getElementById("card").innerHTML+=`
+<br>
+<button onclick="${next.name}()">Yes</button>
+<button onclick="${next.name}()">No</button>
+`;
+}
+
+function showContinue(next){
+document.getElementById("card").innerHTML+=`
+<br>
+<button onclick="${next.name}()">Continue</button>
+`;
+}
+
+
+/* confetti */
+
+function confetti(){
+
+for(let i=0;i<100;i++){
+
+let conf=document.createElement("div");
+
+conf.style.position="absolute";
+conf.style.width="10px";
+conf.style.height="10px";
+
+conf.style.background=
+"hsl("+Math.random()*360+",100%,50%)";
+
+conf.style.left=Math.random()*100+"%";
+conf.style.top="-10px";
+
+conf.style.opacity="0.7";
+
+conf.style.transform="rotate("+Math.random()*360+"deg)";
+
+conf.style.transition="3s linear";
+
+document.body.appendChild(conf);
+
+setTimeout(()=>{
+conf.style.top="100%";
+},10);
+
+setTimeout(()=>{
+conf.remove();
+},3000);
+
+}
+}
+
+</script>
+
+</body>
+</html>
