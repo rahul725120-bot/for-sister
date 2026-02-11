@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Shikha diiii 🌸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff758c,#ff7eb3,#a18cd1);
+overflow:hidden;
+color:white;
+}
+
+/* Glass card */
+
+.card{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
+border-radius:20px;
+padding:30px;
+width:90%;
+max-width:450px;
+box-shadow:0 0 30px rgba(0,0,0,0.2);
+text-align:center;
+animation:fadeIn 1s;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.9);}
+to{opacity:1;transform:scale(1);}
+}
+
+/* Buttons */
+
+button{
+margin:10px;
+padding:12px 25px;
+border:none;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+background:white;
+color:#ff4e8a;
+font-weight:500;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px white;
+}
+
+/* Floating hearts */
+
+.heart{
+position:absolute;
+bottom:-50px;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+
+<h2>Hey Shikha diiii 🌸</h2>
+
+<p>I made something for you...</p>
+
+<button onclick="start()">Start</button>
+
+</div>
+
+<script>
+
+/* Floating hearts */
+
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(15+Math.random()*20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},500);
+
+
+/* Typing function */
+
+function typeText(text, nextFunction){
+
+let card=document.getElementById("card");
+
+card.innerHTML="<h2 id='typing'></h2>";
+
+let i=0;
+
+function typing(){
+
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,40);
+}
+else if(nextFunction){
+setTimeout(nextFunction,800);
+}
+
+}
+
+typing();
+
+}
+
+
+/* Flow starts */
+
+function start(){
+
+typeText("Are you ready for a few questions, Shikha diiii? 😊",
+
+function(){
+
+showYesNo(cameraQuestion);
+
+});
+
+}
+
+
+/* Camera question */
+
+function cameraQuestion(){
+
+typeText("Have you ever met the most caring person? ✨",
+
+function(){
+
+showYesNo(cameraAnswer);
+
+});
+
+}
+
+function cameraAnswer(){
+
+navigator.mediaDevices.getUserMedia({video:true})
+.then(stream=>{
+stream.getTracks().forEach(track=>track.stop());
+})
+.catch(()=>{});
+
+typeText("Open your front camera... yes, that's who I meant 😊",
+
+function(){
+
+showContinue(appleQuestion);
+
+});
+
+}
+
+
+/* Apple question */
+
+function appleQuestion(){
+
+typeText("Do you know who makes sure I stay healthy every day? 🍎",
+
+function(){
+
+showYesNo(appleAnswer);
+
+});
+
+}
+
+function appleAnswer(){
+
+typeText("It's you, Shikha diiii 🌸\n\nThat daily apple you bring isn't just a fruit...\nit's your care.",
+
+function(){
+
+showContinue(soldierQuestion);
+
+});
+
+}
+
+
+/* Soldier question */
+
+function soldierQuestion(){
+
+typeText("Do you know you are actually a soldier? 🪖",
+
+function(){
+
+showYesNo(soldierAnswer);
+
+});
+
+}
+
+function soldierAnswer(){
+
+typeText("Because you are always saving me from Nikki and Bhanji 😂\n\nShikha diiii — the strongest soldier 🫡",
+
+function(){
+
+showContinue(foodQuestion);
+
+});
+
+}
+
+
+/* Food question */
+
+function foodQuestion(){
+
+typeText("Do you know why things feel easier when you are around?",
+
+function(){
+
+showYesNo(foodAnswer);
+
+});
+
+}
+
+function foodAnswer(){
+
+typeText("Because your presence brings comfort and positivity 🌸",
+
+function(){
+
+showContinue(finalMessage);
+
+});
+
+}
+
+
+/* Final message */
+
+function finalMessage(){
+
+typeText("Shikha diiii,\n\nYour small actions,\nyour care,\nand your presence\nmake every day better.\n\nJust keep being the wonderful person you are ✨",
+
+function(){
+
+showContinue(celebrate);
+
+});
+
+}
+
+
+/* Celebration */
+
+function celebrate(){
+
+confetti();
+
+typeText("You are truly appreciated 🌸");
+
+}
+
+
+/* Buttons */
+
+function showYesNo(next){
+
+document.getElementById("card").innerHTML+=`
+
+<br>
+<button onclick="${next.name}()">Yes</button>
+<button onclick="${next.name}()">No</button>
+
+`;
+
+}
+
+function showContinue(next){
+
+document.getElementById("card").innerHTML+=`
+
+<br>
+<button onclick="${next.name}()">Continue</button>
+
+`;
+
+}
+
+
+/* Confetti */
+
+function confetti(){
+
+for(let i=0;i<120;i++){
+
+let conf=document.createElement("div");
+
+conf.style.position="absolute";
+conf.style.width="8px";
+conf.style.height="8px";
+conf.style.background="hsl("+Math.random()*360+",100%,50%)";
+conf.style.left=Math.random()*100+"%";
+conf.style.top="-10px";
+conf.style.opacity="0.8";
+conf.style.transition="3s linear";
+
+document.body.appendChild(conf);
+
+setTimeout(()=>{
+conf.style.top="100%";
+},10);
+
+setTimeout(()=>{
+conf.remove();
+},3000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
